@@ -16,7 +16,12 @@
     </div>
 
     <div class="grid-container">
-      <div class="box" style="grid-area: box-1">GRAPH</div>
+
+      <div class="box" style="grid-area: box-1">
+        <div class="graph">
+
+        </div>
+      </div>
 
 
       <div class="box transaction-box" style="grid-area: box-2">
@@ -24,7 +29,9 @@
           <div class="transaction-title">
             <p>Transaction</p>
           </div>
-          <input type="text">
+          <input id="titleInput" type="text" placeholder="Salary, Rent, etc...">
+
+          <input id="amountInput" type="text" placeholder="Amount">
 
             <div class="transaction-dropdown" id="categoryDropdown"> 
               <div class="dropdown-header">
@@ -39,13 +46,22 @@
               </ul>
             </div> 
 
-          <input type="text">
-          <button>Make Transaction</button>
+          <button id="transaction-btn">Make Transaction</button>
+
         </div>
       </div>
 
 
       <div class="box" style="grid-area: box-3">DATA</div>
+
+
+
+
+
+
+
+
+
 
 
       <div class="box" style="grid-area: box-4">
@@ -67,6 +83,10 @@
         </div>
 
       </div>
+
+
+
+
     </div>
 
 
@@ -77,6 +97,6 @@
 
   </div>
   
-  <script src=""></script>
+  <script src="script.js"></script>
 </body>
 </html>
