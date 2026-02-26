@@ -4,19 +4,69 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Expense Tracker</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
 </head>
 <body>
   <div class="container">
 
     <div class="header">
-      <h1> Expense Tracker</h1>
+      <div class="header-container">
+        <h1> Expense Tracker</h1>
+      </div>
     </div>
 
-    <div class="tracker-container">
-      <div class="box" style="grid-area: box-1"></div>
-      <div class="box" style="grid-area: box-2"></div>
-      <div class="box" style="grid-area: box-3"></div>
-      <div class="box" style="grid-area: box-4"></div>
+    <div class="grid-container">
+      <div class="box" style="grid-area: box-1">GRAPH</div>
+
+
+      <div class="box transaction-box" style="grid-area: box-2">
+        <div class="transaction">
+          <div class="transaction-title">
+            <p>Transaction</p>
+          </div>
+          <input type="text">
+
+            <div class="transaction-dropdown" id="categoryDropdown"> 
+              <div class="dropdown-header">
+                <span class="selected">Savings</span>
+                <span class="arrow"><i class="fa-solid fa-angle-down"></i></span>
+              </div>
+              
+              <ul class="dropdown-list">
+                <li data-value="savings">Savings</li>
+                <li data-value="investment">Investment</li>
+                <li data-value="expense">Expense</li>
+              </ul>
+            </div> 
+
+          <input type="text">
+          <button>Make Transaction</button>
+        </div>
+      </div>
+
+
+      <div class="box" style="grid-area: box-3">DATA</div>
+
+
+      <div class="box" style="grid-area: box-4">
+
+        <div class="history">
+          <div class="history-title">
+            <h1>History</h1>
+          </div>
+
+          <div class="history-list-container">
+            <ul class="history-list">
+              <li>
+                <span class="title">title</span>
+                <span class="icon"><i class="fa-solid fa-trash"></i></span>
+              </li>
+            </ul>
+          </div>
+          
+        </div>
+
+      </div>
     </div>
 
 
