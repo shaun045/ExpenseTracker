@@ -1,14 +1,57 @@
 
 /* ------------------>THIS IS FOR TRANSACTION SECTION<--------------------- */
 
+
+/* THIS IS FOR THE DROPDOWN */
 const transactionDropdown = document.getElementById("categoryDropdown");
+const dropDownHeader = document.querySelector(".dropdown-header");
+const dropDownOptions = document.querySelector(".dropdown-list");
+
+const selectedHeader = document.querySelector(".dropdown-header .selected")
+selectedHeader.dataset.value = "savings";
+
+const arrowIcon = document.querySelector(".arrow-icon");
+
+dropDownHeader.addEventListener('click', () => {
+
+  dropDownOptions.classList.toggle("open");
+  arrowIcon.classList.toggle("rotate");
+
+
+})
+
+dropDownOptions.addEventListener('click', (e) => {
+  const option = e.target.closest("li");
+
+  if (!option) return;
+
+  selectedHeader.textContent = option.textContent;
+  selectedHeader.dataset.value = option.dataset.value;
+
+  dropDownOptions.classList.remove("open");
+  arrowIcon.classList.remove("rotate");
+})
+
+
+
+/* THIS IS FOR MAKE TRANSACTION */
+let transactions = [];
+const title = document.getElementById("titleInput");
+const amount = document.getElementById("amountInput");
+
 const makeTransaction = document.getElementById("transaction-btn");
 
-
-
-
-
-
 makeTransaction.addEventListener('click', () => {
-  console.log('transaction made');
+  const transaction = getTransaction();
+  transactions.push(transaction);
+  console.log(transactions);
 })
+
+function getTransaction() {
+  return {
+    title: title.value.trim(),
+    amount: Number(amount.value),
+    category: selectedHeader.dataset.value,
+    id: Date.now()
+  };
+}

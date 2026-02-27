@@ -169,9 +169,19 @@ body {
   margin-right: 10px;
 }
 
+.arrow-icon {
+  transition: transform 0.3s ease;
+  transform: rotate(180deg);
+}
+
+.arrow-icon.rotate {
+  transform: rotate(0deg);
+}
+
+
 .dropdown-list {
   position: absolute;
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
   flex-direction: column;
@@ -182,25 +192,33 @@ body {
   border-radius: 5px;
   margin-top: -2px;
   padding: 0;
-
+  /* opacity: 0; */
+  transition: opacity 0.2s ease-in-out;
 
   background-color: white;
   color: black;
 }
 
 .dropdown-list li{
-  border: 1px solid;
+  border: none;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
   padding: 15px 0;
   font-size: 20px;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease-in-out;
+}
+
+.dropdown-list li:hover {
+  background-color: rgb(241, 239, 239);
 }
 
 
 .dropdown-list.open {
   display: flex;
+  /* opacity: 1; */
 }
 
 
