@@ -36,6 +36,7 @@ dropDownOptions.addEventListener('click', (e) => {
 
 /* THIS IS FOR MAKE TRANSACTION */
 let transactions = [];
+
 const title = document.getElementById("titleInput");
 const amount = document.getElementById("amountInput");
 
@@ -43,9 +44,18 @@ const makeTransaction = document.getElementById("transaction-btn");
 
 makeTransaction.addEventListener('click', () => {
   const transaction = getTransaction();
+
+  if (!transaction.title || !transaction.amount) {
+    alert("Please provide input.");
+    return;
+  }
+
   transactions.push(transaction);
   console.log(transactions);
 })
+
+
+/* THIS IS FOR GETTING TRANSACTIONS */
 
 function getTransaction() {
   return {
@@ -54,4 +64,11 @@ function getTransaction() {
     category: selectedHeader.dataset.value,
     id: Date.now()
   };
+}
+
+/* THIS IS FOR FILTERING TRANSACTIONS */
+function getTransactionByCategory(category) {
+  return transactions
+      .filter(tx => tx.category === category)
+      .reduce((sum, tx) => sum + tx.amount, 0);
 }
