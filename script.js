@@ -56,7 +56,6 @@ makeTransaction.addEventListener('click', () => {
 
 
 /* THIS IS FOR GETTING TRANSACTIONS */
-
 function getTransaction() {
   return {
     title: title.value.trim(),
@@ -67,8 +66,23 @@ function getTransaction() {
 }
 
 /* THIS IS FOR FILTERING TRANSACTIONS */
-function getTransactionByCategory(category) {
+function calculateCategoryTotal(category) {
   return transactions
       .filter(tx => tx.category === category)
       .reduce((sum, tx) => sum + tx.amount, 0);
+}
+
+/* THIS IS FOR THE CALCULATIONS */
+function calculateCategoryPercentage(category) {
+  const savingsTotal = calculateCategoryTotal("savings");
+  const investmentsTotal = calculateCategoryTotal("investment");
+  const expensesTotal = calculateCategoryTotal("expense");
+
+  const overAllTotal = savingsTotal + investmentsTotal + expensesTotal;
+
+  const selectedTotal = calculateCategoryTotal(category);
+
+  if (overAllTotal === 0) return 0;
+
+  return (selectedTotal / overAllTotal) * 100;
 }
