@@ -1,6 +1,8 @@
 
 /* ------------------>THIS IS FOR TRANSACTION SECTION<--------------------- */
 
+/* THIS IS FOR THE GRAPH */
+const graph = document.querySelector(".graph");
 
 /* THIS IS FOR THE DROPDOWN */
 const transactionDropdown = document.getElementById("categoryDropdown");
@@ -85,4 +87,22 @@ function calculateCategoryPercentage(category) {
   if (overAllTotal === 0) return 0;
 
   return (selectedTotal / overAllTotal) * 100;
+}
+
+
+/*THIS IS FOR UI UPDATE FUNCTION */
+function udpateChart() {
+  const savingsPercentage = calculateCategoryPercentage("savings");
+  const investmentPercentage = calculateCategoryPercentage("investment");
+  const expensePercentage = calculateCategoryPercentage("expense");
+
+  const expenseStart = savingsPercentage;
+  const investmentStart = savingsPercentage + expensePercentage;
+
+  graph.style.background = `
+    conic-gradient (
+    green 0% ${savingsPercentage}%,
+    red ${expenseStart}% ${investmentStart}%,
+    blue ${investmentStart}% 100%)
+  `;
 }
