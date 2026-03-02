@@ -2,7 +2,20 @@
 /* ------------------>THIS IS FOR TRANSACTION SECTION<--------------------- */
 
 /* THIS IS FOR THE GRAPH */
-const graph = document.querySelector(".graph");
+const radius = 100;
+const circumference = 2 * Math.PI * radius;
+
+const savingsCircle = document.querySelector(".savings");
+const expenseCircle = document.querySelector(".expense");
+const investmentCircle = document.querySelector(".investment");
+
+
+[savingsCircle, expenseCircle, investmentCircle].forEach(circle => {
+  circle.style.strokeDasharray = circumference;
+});
+
+
+
 
 /* THIS IS FOR THE DROPDOWN */
 const transactionDropdown = document.getElementById("categoryDropdown");
@@ -53,7 +66,9 @@ makeTransaction.addEventListener('click', () => {
   }
 
   transactions.push(transaction);
+
   console.log(transactions);
+  updateChart();
 })
 
 
@@ -91,18 +106,64 @@ function calculateCategoryPercentage(category) {
 
 
 /*THIS IS FOR UI UPDATE FUNCTION */
-function udpateChart() {
+function updateChart() {
+  const gap = 5;
+  // const gapSize = 15;
+  // const gapAngle = (gapSize / circumference) * 360;
+  // const halfGap = gapAngle / 2;
+
   const savingsPercentage = calculateCategoryPercentage("savings");
   const investmentPercentage = calculateCategoryPercentage("investment");
   const expensePercentage = calculateCategoryPercentage("expense");
 
-  const expenseStart = savingsPercentage;
-  const investmentStart = savingsPercentage + expensePercentage;
+  // const savingsLength = Math.max(
+  //   0, 
+  //   (savingsPercentage / 100) * circumference - gapSize
+  // );
 
-  graph.style.background = `
-    conic-gradient (
-    green 0% ${savingsPercentage}%,
-    red ${expenseStart}% ${investmentStart}%,
-    blue ${investmentStart}% 100%)
-  `;
+  // const expenseLength = Math.max(
+  //   0, 
+  //   (expensePercentage / 100) * circumference - gapSize
+  // );
+
+  // const investmentLength = Math.max(
+  //   0, 
+  //   (investmentPercentage / 100) * circumference - gapSize
+  // );
+
+  // savingsCircle.style.strokeDasharray = `
+  //   ${savingsLength} ${circumference}`;
+
+  // expenseCircle.style.strokeDasharray = `
+  //   ${expenseLength} ${circumference}`;
+
+  // investmentCircle.style.strokeDasharray = `
+  //   ${investmentLength} ${circumference}`;
+
+  const savingsAdjusted = Math.max(0, savingsPercentage - gap);
+  const expenseAdjusted = Math.max(0, expensePercentage - gap);
+  const investmentAdjusted = Math.max(0, investmentPercentage - gap);
+
+  const savingsOffset = circumference - (savingsAdjusted / 100) * circumference;
+  const expenseOffset = circumference - (expenseAdjusted / 100) * circumference;
+  const investmentOffset = circumference - (investmentAdjusted / 100) * circumference;
+
+  savingsCircle.style.strokeDashoffset = savingsOffset;
+  expenseCircle.style.strokeDashoffset = expenseOffset;
+  investmentCircle.style.strokeDashoffset = investmentOffset;
+
+  expenseCircle.style.transform = `rotate(${savingsPercentage * 3.6}deg)`;
+  investmentCircle.style.transform = `rotate(${(savingsPercentage + expensePercentage) * 3.6}deg)`;
+
+
+
+
+  // const savingsDegrees = (savingsLength / circumference) * 360;
+  // const expenseDegrees = (expenseLength / circumference) * 360;
+
+  // expenseCircle.style.transform = `rotate(${halfGap}deg)`;
+  // expenseCircle.style.transform = `rotate(${savingsDegrees + halfGap * 2}deg)`;
+  // investmentCircle.style.transform = `rotate(${savingsDegrees + expenseDegrees + halfGap * 3}deg`;
+
+
 }
