@@ -24,6 +24,8 @@
               <h1>TOTAL:</h1>
               <h2 class="overall-total-amount"></h2>
             </div>
+
+            <!--THIS IS FOR THE CIRCLE GRAPH-->
             <svg width="260" height="260" viewBox="0 0 260 260">
 
               <!--SAVIGS-->
@@ -32,8 +34,7 @@
                   cx="130"
                   cy="130"
                   r="100"
-                />
-               
+                />            
                 <!--Expense-->
                   <circle
                     class="circle expense"
@@ -41,7 +42,6 @@
                     cy="130"
                     r="100"
                   />
-
                 <!--Investment-->
                   <circle
                     class="circle investment"
@@ -49,9 +49,11 @@
                     cy="130"
                     r="100"
                   />
-
             </svg>
           </div>
+
+
+          <!--THIS IS FOR THE WALLET BALANCE BOX-->
           <div class="wallet-balance-container">
             <div class="wallet-balance">
               <p>Your Balance</p>
@@ -59,21 +61,34 @@
             </div>
 
             <div class="income-expense">
-              <div class="income">
+              <div class="wallet-income">
                 <p>income</p>
                 <h1 class="income-amount">Income Amount</h1>
               </div>
-              <div class="expense">
+              <div class="wallet-expense">
                 <p>Expenses</p>
                 <h1 class="expense-amount">Expense Amount</h1>
               </div>
             </div>
-
           </div>
 
+
+          <!--THIS IS FOR THE DATA PERCENTAGES-->
           <div class="data-percentage">
-
+            <div class="percentages savings-percentage">
+              <p>Savings</p>
+              <p>0%</p>
+            </div>
+            <div class="percentages expense-percentage">
+              <p>Expense</p>
+              <p>0%</p>
+            </div>
+            <div class="percentages investment-percentage">
+              <p>Investment</p>
+              <p>0%</p>
+            </div>
           </div>
+
         </div>
       </div>
 

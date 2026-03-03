@@ -15,8 +15,11 @@ const investmentCircle = document.querySelector(".investment");
   circle.style.strokeDashoffset = circumference;
 });
 
-
 const overallTotalAmount = document.querySelector(".overall-total-amount");
+
+
+/* THIS IS FOR THE DATA PERCENTAGES BELOW THE GRAPH! */
+const dataPercentage = document.querySelector(".data-percentage");
 
 
 
@@ -167,4 +170,11 @@ function animateValue(element, start, end, duration = 800) {
   }
 
   requestAnimationFrame(animation);
+}
+
+/* THIS IS FOR DATA PERCENTAGE UI DISPLAY */
+function dataPercentageDisplay() {
+  dataPercentage.innerHTML = `
+  
+  `
 }
