@@ -93,7 +93,9 @@ body {
   transform-box: fill-box;
   stroke-width: 25;
   stroke-linecap: round;
-  transition: all 0.5s ease;
+  transition: 
+    stroke-dashoffset 1.5s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 1.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .savings {
@@ -132,7 +134,7 @@ body {
   align-items: center;
   padding: 0;
   margin-top: 10px;
-  margin-right: 2px;
+  /* margin-right: 2px; */
   font-size: 30px;
 }
 

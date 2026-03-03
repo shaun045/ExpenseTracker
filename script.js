@@ -141,5 +141,30 @@ function calculateTotalAmount() {
 
   const totalAmount = savingsTotal + investmentTotal + expenseTotal;
 
-  overallTotalAmount.innerHTML = totalAmount;
+  // overallTotalAmount.innerHTML = totalAmount;
+
+  const currentValue = parseInt(overallTotalAmount.textContent) || 0;
+  animateValue(overallTotalAmount, currentValue, totalAmount, 800);
+}
+
+/* THIS IS FOR TOTAL UI ANIMATION */
+function animateValue(element, start, end, duration = 800) {
+  let startTime = null;
+
+  function animation(currentTime) {
+    if (!startTime) startTime = currentTime;
+
+    const progress = currentTime - startTime;
+    const percentage = Math.min(progress / duration, 1);
+    
+    const value = Math.floor(start + (end - start) * percentage);
+
+    element.textContent = "₱ " + value.toLocaleString();
+
+    if (percentage < 1) {
+      requestAnimationFrame(animation);
+    }
+  }
+
+  requestAnimationFrame(animation);
 }
