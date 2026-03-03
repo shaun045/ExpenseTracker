@@ -12,7 +12,11 @@ const investmentCircle = document.querySelector(".investment");
 
 [savingsCircle, expenseCircle, investmentCircle].forEach(circle => {
   circle.style.strokeDasharray = circumference;
+  circle.style.strokeDashoffset = circumference;
 });
+
+
+const overallTotalAmount = document.querySelector(".overall-total-amount");
 
 
 
@@ -69,6 +73,7 @@ makeTransaction.addEventListener('click', () => {
 
   console.log(transactions);
   updateChart();
+  calculateTotalAmount();
 })
 
 
@@ -108,37 +113,10 @@ function calculateCategoryPercentage(category) {
 /*THIS IS FOR UI UPDATE FUNCTION */
 function updateChart() {
   const gap = 5;
-  // const gapSize = 15;
-  // const gapAngle = (gapSize / circumference) * 360;
-  // const halfGap = gapAngle / 2;
 
   const savingsPercentage = calculateCategoryPercentage("savings");
   const investmentPercentage = calculateCategoryPercentage("investment");
   const expensePercentage = calculateCategoryPercentage("expense");
-
-  // const savingsLength = Math.max(
-  //   0, 
-  //   (savingsPercentage / 100) * circumference - gapSize
-  // );
-
-  // const expenseLength = Math.max(
-  //   0, 
-  //   (expensePercentage / 100) * circumference - gapSize
-  // );
-
-  // const investmentLength = Math.max(
-  //   0, 
-  //   (investmentPercentage / 100) * circumference - gapSize
-  // );
-
-  // savingsCircle.style.strokeDasharray = `
-  //   ${savingsLength} ${circumference}`;
-
-  // expenseCircle.style.strokeDasharray = `
-  //   ${expenseLength} ${circumference}`;
-
-  // investmentCircle.style.strokeDasharray = `
-  //   ${investmentLength} ${circumference}`;
 
   const savingsAdjusted = Math.max(0, savingsPercentage - gap);
   const expenseAdjusted = Math.max(0, expensePercentage - gap);
@@ -154,16 +132,14 @@ function updateChart() {
 
   expenseCircle.style.transform = `rotate(${savingsPercentage * 3.6}deg)`;
   investmentCircle.style.transform = `rotate(${(savingsPercentage + expensePercentage) * 3.6}deg)`;
+}
 
+function calculateTotalAmount() {
+  const savingsTotal = calculateCategoryTotal("savings");
+  const expenseTotal = calculateCategoryTotal("expense");
+  const investmentTotal = calculateCategoryTotal("investment");
 
+  const totalAmount = savingsTotal + investmentTotal + expenseTotal;
 
-
-  // const savingsDegrees = (savingsLength / circumference) * 360;
-  // const expenseDegrees = (expenseLength / circumference) * 360;
-
-  // expenseCircle.style.transform = `rotate(${halfGap}deg)`;
-  // expenseCircle.style.transform = `rotate(${savingsDegrees + halfGap * 2}deg)`;
-  // investmentCircle.style.transform = `rotate(${savingsDegrees + expenseDegrees + halfGap * 3}deg`;
-
-
+  overallTotalAmount.innerHTML = totalAmount;
 }
