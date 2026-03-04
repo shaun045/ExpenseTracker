@@ -1,27 +1,94 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
-body {
-  font-family: "Poppins", "san-serif";
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  width: 100%;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-  /* margin: 0;
-  min-height: 100vh;
-  background: 
-      radial-gradient(
-        circle at 50% 85%,
-        #7c3aed 0%,
-        #4c1d95 35%,
-        #0f0f1a 70%),
-        linear-gradient(
-        to bottom,
-        #0a0a14,
-        #12122a
-      );
-  background-attachment: fixed; */
+body {
+  color: white;
+  font-family: "Poppins", "san-serif";
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: #031716;
+
+}
+
+.bg {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(to bottom, #031716, #0D1F2D);
+}
+
+.ring {
+  position: fixed;
+  left: 50%;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(10, 112, 117, 0.35);
+  animation: radiate 4s ease-out infinite;
+  pointer-events: none;
+}
+
+.ring:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.ring:nth-child(2) {
+  animation-delay: 1s;
+}
+
+.ring:nth-child(3) {
+  animation-delay: 2s;
+}
+
+.ring:nth-child(4) {
+  animation-delay: 3s;
+}
+
+@keyframes radiate {
+  0% {
+    width: 100px;
+    height: 100px;
+    top: 85%;
+    opacity: 0.8;
+    border-color: rgba(10, 112, 117, 0.6);
+  }
+  100% {
+    width: 120vmax;
+    height: 120vmax;
+    top: 85%;
+    opacity: 0;
+    border-color: rgba(10, 112, 117, 0);
+  }
+}
+
+.orb {
+  position: fixed;
+  width: 500px;
+  height: 500px;
+  left: 50%;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    circle,
+    rgba(10, 112, 117, 0.55) 0%,
+    rgba(3, 47, 48, 0.3) 45%,
+    transparent 75%
+  );
+  filter: blur(30px);
+  animation: orbFloat 6s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes orbFloat {
+  0% { top: 85%; width: 500px; height: 500px; opacity: 0.9; }
+  25% { top: 80%; width: 560px; height: 560px; opacity: 2; }
+  50% { top: 88%; width: 480px; height: 480px; opacity: 0.7; }
+  75% { top: 82%; width: 540px; height: 540px; opacity: 1; }
+  100% { top: 85%; width: 500px; height: 500px; opacity: 0.9; }
 }
 
 .container {
@@ -63,13 +130,14 @@ body {
 }
 
 .box {
-  border: 1px solid;
+  border: none;
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 70px;
   width: 100%;
   height: 100%;
+  border-radius: 20px;
 }
 
 
@@ -90,7 +158,14 @@ body {
   height: 100%;
   /* margin-bottom: 240px; */
   margin-top: 30px;
+  padding-top: 30px;
+  border-radius: 25px;
+  box-shadow: 0 0px 10px rgba(0, 0, 0, 0.3);
+
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
 }
+
 
 
 .svg {
@@ -114,18 +189,27 @@ body {
 
 
 .savings {
-  stroke: rgb(11, 218, 90);
-  filter: drop-shadow(0 0 10px rgba(11, 218, 90, 0.6));
+  /* stroke: rgb(11, 218, 90);
+  filter: drop-shadow(0 0 10px rgba(11, 218, 90, 0.6)); */
+  /* stroke: #0C969C; */
+  stroke: #00FFFF;
+  filter: drop-shadow(0 0 10px rgba(12, 150, 156, 0.7));
 }
 
 .expense {
-  stroke: rgb(241, 60, 5);
-  filter: drop-shadow(0 0 10px rgba(241, 60, 5, 0.7));
+  /* stroke: rgb(241, 60, 5);
+  filter: drop-shadow(0 0 10px rgba(241, 60, 5, 0.7)); */
+  /* stroke: #B05565; */
+  stroke: #FF6E00;
+  filter: drop-shadow(0 0 10px rgba(255, 110, 0, 1.0));
 }
 
 .investment {
-  stroke: rgb(20, 121, 236);
-  filter: drop-shadow(0 0 10px rgba(20, 121, 236, 0.7));
+  /* stroke: rgb(20, 121, 236); */
+  /* filter: drop-shadow(0 0 10px rgba(20, 121, 236, 0.7)); */
+  /* stroke: #255974; */
+  stroke: #007FFF;
+  filter: drop-shadow(0 0 10px rgba(37, 89, 116, 0.7));
 }
 
 .total {
@@ -144,6 +228,7 @@ body {
   justify-content: center;
   align-items: center;
   line-height: 0;
+  margin-top: 20px;
 }
 
 .total h2 {
@@ -151,7 +236,7 @@ body {
   justify-content: center;
   align-items: center;
   padding: 0;
-  margin-top: 10px;
+  margin-top: 30px;
   /* margin-right: 2px; */
   font-size: 30px;
   color: rgb(11, 218, 90);
@@ -167,7 +252,7 @@ body {
   justify-content: center;
   align-items: center;
   width: 90%;
-  height: 30%;
+  height: 40%;
   margin-top: 40px;
   margin-bottom: 20px;
   flex-direction: column;
@@ -313,15 +398,18 @@ body {
 }
 
 .savings-percentage {
-  border-color: rgb(4, 197, 78);
+  /* border-color: rgb(4, 197, 78); */
+  border-color: #00FFFF;
 }
 
 .expense-percentage {
-  border-color: rgb(230, 62, 21);
+  /* border-color: rgb(230, 62, 21); */
+  border-color: #FF6E00;
 }
 
 .investment-percentage {
-  border-color: rgb(6, 101, 209);
+  /* border-color: rgb(6, 101, 209); */
+  border-color: #007FFF;
 }
 
 
@@ -332,13 +420,18 @@ body {
 
 /* ---------------> THIS IS FOR TRANSACTION BOX <---------------- */
 
+.transaction-box {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+}
+
 .transaction {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   line-height: 0;
-  width: 70%;
+  width: 80%;
   height: 90%;
   padding: 0;
   margin-bottom: 20px;
@@ -514,13 +607,20 @@ body {
 
 
 /* ---------------> THIS IS FOR HISTORY BOX <---------------- */
+.history-box {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  height: 110%;
+  margin-top: 90px;
+}
+
 .history {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 70%;
-  height: 90%;
+  width: 80%;
+  height: 75%;
   margin: 0;
   padding: 0;
 }
