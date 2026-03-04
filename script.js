@@ -77,6 +77,7 @@ makeTransaction.addEventListener('click', () => {
   console.log(transactions);
   updateChart();
   calculateTotalAmount();
+  addToTransactionHistory(transaction);
 })
 
 
@@ -177,4 +178,22 @@ function dataPercentageDisplay() {
   dataPercentage.innerHTML = `
   
   `
+}
+
+
+/* THIS IS FOR THE HISTORY LIST */
+const historyList = document.querySelector(".history-list");
+const historyTransaction = document.querySelector(".history-list li");
+
+
+function addToTransactionHistory(transaction) {
+  const newTransactionList = document.createElement("li");
+
+  newTransactionList.innerHTML = `
+    <span class="title">${transaction.title}</span>
+    <span class="icon"><i class="fa-solid fa-trash"></i></span>
+  `;
+
+  newTransactionList.classList.add("animate-in");
+  historyList.prepend(newTransactionList);
 }
