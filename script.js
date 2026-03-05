@@ -55,10 +55,16 @@ dropDownOptions.addEventListener('click', (e) => {
 })
 
 
+/* THIS IS FOR TRANSACTION DATA STORAGE */
+let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
 
-/* THIS IS FOR MAKE TRANSACTION */
-let transactions = [];
+/* THIS FOR ADDING THE TRANSACTIONS TO STORAGE */
+function addToLocalStorage() {
+  localStorage.setItem('transactions', JSON.stringify(transactions));
+}
 
+
+/* THIS IS FOR MAKING TRANSACTION FUNCTION */
 const title = document.getElementById("titleInput");
 const amount = document.getElementById("amountInput");
 
@@ -74,11 +80,16 @@ makeTransaction.addEventListener('click', () => {
 
   transactions.push(transaction);
 
-  console.log(transactions);
-  updateChart();
-  calculateTotalAmount();
+  addToLocalStorage();
   addToTransactionHistory(transaction);
+  render();
 })
+
+/* --------------> THIS IS FOR UI RENDER FUNCTION <---------------- */
+function render() {
+  calculateTotalAmount();
+  updateChart();
+}
 
 
 /* THIS IS FOR GETTING TRANSACTIONS */
@@ -197,3 +208,16 @@ function addToTransactionHistory(transaction) {
   newTransactionList.classList.add("animate-in");
   historyList.prepend(newTransactionList);
 }
+
+function renderHistoryList() {
+  historyList.innerHTML = "";
+
+  transactions.forEach(transaction => {
+    addToTransactionHistory(transaction);
+  })
+
+  render();
+}
+
+
+renderHistoryList();
