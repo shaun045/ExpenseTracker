@@ -196,7 +196,7 @@ body {
   filter: drop-shadow(0 0 10px rgba(11, 218, 90, 0.6)); */
   /* stroke: #0C969C; */
   stroke: #00FFFF;
-  filter: drop-shadow(0 0 10px rgba(12, 150, 156, 0.7));
+  filter: drop-shadow(0 0 10px rgba(12, 150, 156, 1));
 }
 
 .expense {
@@ -204,7 +204,7 @@ body {
   filter: drop-shadow(0 0 10px rgba(241, 60, 5, 0.7)); */
   /* stroke: #B05565; */
   stroke: #FF6E00;
-  filter: drop-shadow(0 0 10px rgba(255, 110, 0, 1.0));
+  filter: drop-shadow(0 0 10px rgba(255, 110, 0, 1));
 }
 
 .investment {
@@ -212,7 +212,7 @@ body {
   /* filter: drop-shadow(0 0 10px rgba(20, 121, 236, 0.7)); */
   /* stroke: #255974; */
   stroke: #007FFF;
-  filter: drop-shadow(0 0 13px rgba(37, 89, 116, 0.7));
+  filter: drop-shadow(0 0 13px rgba(37, 89, 116, 1));
 }
 
 .total {
@@ -424,6 +424,21 @@ body {
   /* border-color: rgb(6, 101, 209); */
   border-color: #007FFF;
   background: rgba(153, 152, 152, 0.26);
+}
+
+.savings-percentage p:nth-of-type(2) {
+  color: #00FFFF;
+  filter: drop-shadow(0 0 30px rgba(12, 150, 156, 1));
+}
+
+.expense-percentage p:nth-of-type(2) {
+  color: #FF6E00;
+  filter: drop-shadow(0 0 30px rgba(255, 110, 0, 1));
+}
+
+.investment-percentage p:nth-of-type(2) {
+  color: #007FFF;
+  filter: drop-shadow(0 0 30px rgba(37, 89, 116, 1));
 }
 
 
@@ -727,8 +742,23 @@ body {
   transition: all 0.2s ease-in-out;
 }
 
+.history-list li.savings {
+  border-color: #00FFFF;
+  filter: none;
+}
+
+.history-list li.expense {
+  border-color: #FF6E00;
+  filter: none;
+}
+
+.history-list li.investment {
+  border-color: #007FFF;
+  filter: none;
+}
+
 .history-list li:hover {
-  transform: scale(1.01);
+  transform: scale(1.05);
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
 }
 

@@ -18,10 +18,6 @@ const investmentCircle = document.querySelector(".investment");
 const overallTotalAmount = document.querySelector(".overall-total-amount");
 
 
-/* THIS IS FOR THE DATA PERCENTAGES BELOW THE GRAPH! */
-const dataPercentage = document.querySelector(".data-percentage");
-
-
 
 
 /* THIS IS FOR THE DROPDOWN */
@@ -56,12 +52,21 @@ dropDownOptions.addEventListener('click', (e) => {
 
 
 /* THIS IS FOR TRANSACTION DATA STORAGE */
-let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
+let transactions = [];
+
+try {
+  transactions = JSON.parse(localStorage.getItem("transactions")) || [];
+} catch (error) {
+  transactions = [];
+}
+
+
 
 /* THIS FOR ADDING THE TRANSACTIONS TO STORAGE */
 function addToLocalStorage() {
   localStorage.setItem('transactions', JSON.stringify(transactions));
 }
+
 
 
 /* THIS IS FOR MAKING TRANSACTION FUNCTION */
@@ -85,11 +90,29 @@ makeTransaction.addEventListener('click', () => {
   render();
 })
 
+
+
+
+
+
+
+
+
+
 /* --------------> THIS IS FOR UI RENDER FUNCTION <---------------- */
 function render() {
+  dataPercentageDisplay();
   calculateTotalAmount();
   updateChart();
 }
+
+
+
+
+
+
+
+
 
 
 /* THIS IS FOR GETTING TRANSACTIONS */
@@ -109,6 +132,15 @@ function calculateCategoryTotal(category) {
       .reduce((sum, tx) => sum + tx.amount, 0);
 }
 
+
+
+
+
+
+
+
+
+
 /* THIS IS FOR THE CALCULATIONS */
 function calculateCategoryPercentage(category) {
   const savingsTotal = calculateCategoryTotal("savings");
@@ -123,6 +155,15 @@ function calculateCategoryPercentage(category) {
 
   return (selectedTotal / overAllTotal) * 100;
 }
+
+
+
+
+
+
+
+
+
 
 
 /*THIS IS FOR UI UPDATE FUNCTION */
@@ -159,11 +200,13 @@ function calculateTotalAmount() {
   // overallTotalAmount.innerHTML = totalAmount;
 
   const currentValue = parseInt(overallTotalAmount.textContent) || 0;
-  animateValue(overallTotalAmount, currentValue, totalAmount, 800);
+  animateValue(overallTotalAmount, currentValue, totalAmount, 800, "₱ ", "");
 }
 
+
+
 /* THIS IS FOR TOTAL UI ANIMATION */
-function animateValue(element, start, end, duration = 800) {
+function animateValue(element, start, end, duration = 800, prefix = "", suffix = "") {
   let startTime = null;
 
   function animation(currentTime) {
@@ -174,7 +217,7 @@ function animateValue(element, start, end, duration = 800) {
     
     const value = Math.floor(start + (end - start) * percentage);
 
-    element.textContent = "₱ " + value.toLocaleString();
+    element.textContent = prefix + value.toLocaleString() + suffix;
 
     if (percentage < 1) {
       requestAnimationFrame(animation);
@@ -185,10 +228,28 @@ function animateValue(element, start, end, duration = 800) {
 }
 
 /* THIS IS FOR DATA PERCENTAGE UI DISPLAY */
+/* THIS IS FOR THE DATA PERCENTAGES BELOW THE GRAPH! */
+
+const savingsDataPercentage = document.querySelector(".savings-percentage p:nth-of-type(2)");
+const expenseDataPercentage = document.querySelector(".expense-percentage p:nth-of-type(2)");
+const investmentDataPercentage = document.querySelector(".investment-percentage p:nth-of-type(2)");
+
 function dataPercentageDisplay() {
-  dataPercentage.innerHTML = `
-  
-  `
+  const savingsPercentage = calculateCategoryPercentage("savings");
+  const expensePercentage = calculateCategoryPercentage("expense");
+  const investmentPercentage = calculateCategoryPercentage("investment");
+
+  // savingsDataPercentage.textContent = `${savingsPercentage.toFixed(0)}%`;
+  // expenseDataPercentage.textContent = `${expensePercentage.toFixed(0)}%`;
+  // investmentDataPercentage.textContent = `${investmentPercentage.toFixed(0)}%`;
+
+  const currentSavings = parseInt(savingsDataPercentage.textContent) || 0;
+  const currentExpense = parseInt(expenseDataPercentage.textContent) || 0;
+  const currentInvestment = parseInt(investmentDataPercentage.textContent) || 0;
+
+  animateValue(savingsDataPercentage, currentSavings, Math.round(savingsPercentage), 800, "", "%");
+  animateValue(expenseDataPercentage, currentExpense, Math.round(expensePercentage), 800, "", "%");
+  animateValue(investmentDataPercentage, currentInvestment, Math.round(investmentPercentage), 800, "", "%");
 }
 
 
@@ -205,7 +266,7 @@ function addToTransactionHistory(transaction) {
     <span class="icon"><i class="fa-solid fa-trash"></i></span>
   `;
 
-  newTransactionList.classList.add("animate-in");
+  newTransactionList.classList.add("animate-in",transaction.category);
   historyList.prepend(newTransactionList);
 }
 
