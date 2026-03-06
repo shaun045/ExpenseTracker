@@ -101,6 +101,7 @@ makeTransaction.addEventListener('click', () => {
 
 /* --------------> THIS IS FOR UI RENDER FUNCTION <---------------- */
 function render() {
+  updateBalanceAmount();
   dataPercentageDisplay();
   calculateTotalAmount();
   updateChart();
@@ -227,6 +228,47 @@ function animateValue(element, start, end, duration = 800, prefix = "", suffix =
   requestAnimationFrame(animation);
 }
 
+
+
+/* THIS IS FOR BALANCE WALLET */
+
+const balanceAmount = document.querySelector(".balance-amount");
+const incomeAmount = document.querySelector(".income-amount");
+const expenseAmount = document.querySelector(".expense-amount");
+
+function updateBalanceAmount() {
+  const savingsTotal = calculateCategoryTotal("savings");
+  const expenseTotal = calculateCategoryTotal("expense");
+  const investmentTotal = calculateCategoryTotal("investment");
+
+  const totalIncome = savingsTotal + investmentTotal;
+  const totalExpense = expenseTotal;
+  const totalBalance = totalIncome - totalExpense;
+  
+  const currentBalance = parseInt(balanceAmount.textContent) || 0;
+  const currentIncome = parseInt(incomeAmount.textContent) || 0;
+  const currentExpense = parseInt(expenseAmount.textContent) || 0;
+
+  animateValue(incomeAmount, currentIncome, totalIncome, 800, "₱ ", "");
+  animateValue(expenseAmount, currentExpense, totalExpense, 800, "₱ ", "");
+  animateValue(balanceAmount, currentBalance, totalBalance, 800, "₱ ", "");
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* THIS IS FOR DATA PERCENTAGE UI DISPLAY */
 /* THIS IS FOR THE DATA PERCENTAGES BELOW THE GRAPH! */
 
@@ -239,9 +281,6 @@ function dataPercentageDisplay() {
   const expensePercentage = calculateCategoryPercentage("expense");
   const investmentPercentage = calculateCategoryPercentage("investment");
 
-  // savingsDataPercentage.textContent = `${savingsPercentage.toFixed(0)}%`;
-  // expenseDataPercentage.textContent = `${expensePercentage.toFixed(0)}%`;
-  // investmentDataPercentage.textContent = `${investmentPercentage.toFixed(0)}%`;
 
   const currentSavings = parseInt(savingsDataPercentage.textContent) || 0;
   const currentExpense = parseInt(expenseDataPercentage.textContent) || 0;
@@ -253,18 +292,44 @@ function dataPercentageDisplay() {
 }
 
 
+
+
+
+
 /* THIS IS FOR THE HISTORY LIST */
 const historyList = document.querySelector(".history-list");
 const historyTransaction = document.querySelector(".history-list li");
 
 
+/* THIS IS FOR DELETING HISTORY LIST */
+historyList.addEventListener("click", (e) => {
+  const deleteButton = e.target.closest(".icon");
+
+  if (!deleteButton) return;
+
+  if (deleteButton) {
+    const selectedTransaction = e.target.closest("li");
+
+    const transactionId = selectedTransaction.dataset.id;
+
+    transactions = transactions.filter(
+      transaction => transaction.id !== parseInt(transactionId)
+    );
+    selectedTransaction.remove();
+    addToLocalStorage();
+    render();
+  };
+})
+
 function addToTransactionHistory(transaction) {
   const newTransactionList = document.createElement("li");
 
   newTransactionList.innerHTML = `
-    <span class="title">${transaction.title}</span>
+    <span data-id="${transaction.id}" class="title">${transaction.title}</span>
     <span class="icon"><i class="fa-solid fa-trash"></i></span>
   `;
+
+  newTransactionList.dataset.id = transaction.id;
 
   newTransactionList.classList.add("animate-in",transaction.category);
   historyList.prepend(newTransactionList);
