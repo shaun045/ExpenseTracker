@@ -123,7 +123,7 @@ User actions such as adding or deleting transactions trigger real-time UI update
 ________________________________________
 How to Run the Project
 1.	Clone the repository
-git clone https://github.com/yourusername/expense-tracker.git
+git clone (https://github.com/shaun045/ExpenseTracker.git)
 2.	Open the project folder
 3.	Run the application by opening:
 index.html
